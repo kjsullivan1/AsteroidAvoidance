@@ -40,8 +40,9 @@ var GameData = new Schema({
 var GameModel = mongoose.model('Highschore', GameData);
 
 app.get('/getdata',function(req,res){
-    GameModel.find({}).then(function(games){
-        res.json({games});
+    console.log("Getting Data")
+    GameModel.find({}).then(function(scores){
+        res.json({scores});
 
     }).catch(function(err){
         console.error(err);
@@ -73,6 +74,13 @@ app.post('/game', function(req,res){
   
 })
 
+app.get('/getdata',function(req,res){
+    GameModel.find({}).then(function(games){
+        res.json({games});
+
+    })
+});
+
 app.post('/getscore',function(req,res){
     //console.log(req.body);
     var model = new GameModel({name:currName, score:req.body});
@@ -83,6 +91,7 @@ app.post('/getscore',function(req,res){
     model = {name: currName, score:req.body};
     console.log(model);
     new GameModel(model).save();
+    res.redirect('index.html');
     
 })
 

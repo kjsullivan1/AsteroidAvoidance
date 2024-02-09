@@ -18,10 +18,53 @@
         <input id="id" name = "score" type="text" value = "" placeholder="Enter your score" style="position:absolute; left:300px; top:400px; width:200px; visibility: hidden;" />
         <button id="btnScore" style="position:absolute; left:350px; top:450px; width:100px; visibility: hidden;">Submit</button>
     </form>
-    
-    
-    
-   
+
+
+    <br>
+    <h3>HighScore</h3>
+    <script>
+        fetch("/getdata").then(function(scores){
+            scores.json().then(function(theScores){
+                console.log(theScores)
+
+        
+                for(let score of theScores.scores){
+                    
+                    if(theScores.scores + 1 >= 2)
+                    {
+                        for(let score1 of theScores.scores + 1)
+                        {
+                            console.log(Number(score1.score.score));
+                            if(Number(score.score.score) > Number(score1.score.score))
+                            {
+                                var gameElement = document.createElement('p');
+                                //gameElement.innerHTML = score.name.;
+                                console.log(score.name.name);
+                                document.getElementById("nameID").textContent = "Name: " + score.name.name;
+                                document.getElementById("scoreID").textContent = "Score: " + score.score.score;
+                                gameElement.innerHTML += ",  Created by: "+ score.name.name + "&nbsp&nbsp"; 
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        document.getElementById("nameID").textContent = "Name: " + score.name.name;
+                        document.getElementById("scoreID").textContent = "Score: " + score.score.score;
+                    }
+                        
+            
+                   
+                    //Creates the elements and adds them to the page 
+                    
+                    //document.getElementById('container').appendChild(gameElement);
+                }
+            })
+        })
+    </script>
+   <p id="nameID">hello</p>
+   <p id="scoreID">Scorey</p>
+
 
 </body>
 </html>
